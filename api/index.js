@@ -9,7 +9,6 @@ import auth from "../routes/auth.js";
 import posts from "../routes/posts.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 mongoose.set("strictQuery", false);
 
@@ -21,7 +20,7 @@ async function main() {
 	await mongoose.connect(mongoDB);
 }
 
-//middleware
+// Middleware
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
@@ -35,6 +34,5 @@ app.use("/api/users", router);
 app.use("/api/auth", auth);
 app.use("/api/posts", posts);
 
-app.listen(port, "0.0.0.0", () => {
-	console.log(`Example app listening on port ${port}`);
-});
+// Export the app for serverless function
+export default app;
